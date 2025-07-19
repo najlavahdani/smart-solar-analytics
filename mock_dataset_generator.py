@@ -1,4 +1,5 @@
 import pandas as pd
+import random
 
 #Configuration:  1 year of hourly data for 3 panels
 num_panels= 3
@@ -32,7 +33,13 @@ def get_season(month):
     else:
         return "Fall"
     
-
+# Randomly Assign Weather Based on Probabilities
+def assign_weather_condition(timestamp):
+    month = timestamp.month
+    season = get_season(month)
+    weather_options = list(seasonal_weather_probs[season].keys())
+    probabilities = list(seasonal_weather_probs[season].values())
+    return random.choices(weather_options, probabilities)[0]
 
 #the dataset list
 data = [
